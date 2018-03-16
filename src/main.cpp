@@ -20,12 +20,13 @@ int main(int argc, char **argv) {
 
     istringstream zs(argv[2]);//Binary representing the Search algorithms wished to use.
     string bin; //Pass this value as a string to 'bin'.
-    if(bin.size() != 7) { //As I have 7 Search Algorithms.
+    zs >> bin;
+    if(bin.size() != 6) { //As I have 7 Search Algorithms.
     	cerr << "Invalid number " << argv[2] << ". Must have width 7!" << endl;
     	return -3;
     }
-    for(int j=0; j<7; ++j) {
-    	if(bin[j] != '1' || bin[j] != '0') {
+    for(int j=0; j<6; ++j) {
+    	if(bin[j] != '1' && bin[j] != '0') {
     		cerr << "Invalid number " << argv[2] << ". Must be in Binary form!" << endl;
     		return -4;
     	}
@@ -41,27 +42,17 @@ int main(int argc, char **argv) {
     long int* (**Func)(long int*, long int*, long int) = Pointer_to_Func();
 
     for(int i=0; i<25; ++i) {
-    	chrono::duration<double> time;
-    	for(int j=0; j<100; ++j) {
-    		//for(int k=0; k<7; ++k) {
-    			auto start = chrono::high_resolution_clock::now();
-    			Func[2](A, A+(menor+i*(MAXT-menor)/25), -4);
-    			auto end = chrono::high_resolution_clock::now();
-    			time += end-start;
-    		//}
-    	}
-    	chrono::duration<double> media = time/100;
-    	cout << "Test with " << menor+i*(MAXT-menor)/25 << " space alocated: ";
-    	cout << "    " << setprecision(6) << media.count()*pow(10,7) << endl;
+    	cout << "Array size:" << setw(9) << menor+i*(MAXT-menor)/25 << endl;
+    	ExecFunc(A, A+(menor+i*(MAXT-menor)/25), bin, Func);
+    	cout << endl;
     }
 
 	/*Defining 'Func' as an array that stores all my search algorithms.
     Func is a pointer of functions.
     */
-    //long int A[] = calloc(pow(10,10), sizeof(long int));
 
 	/*Use Argv to know how many test cases I must try
-	Look pdf for more details*/
+	Look pdf for more details.*/
 
 
     //long int A[] = {0,1,3,4,6,7,8,9,10,20,25,28};

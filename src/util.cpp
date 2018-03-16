@@ -15,18 +15,22 @@ long int* (**Pointer_to_Func(void))(long int*, long int*, long int) {
 	return func;
 }
 
-void ExecFunc(long int *first, long int *last, string bin, long int*(**)(long int*, long int*, long int) Func) {
-	vector<chrono::duration<double>> time;//Vector will store my times of executions.
-	for(int i=0; i<7; i++) {
+void ExecFunc(long int *first, long int *last, string bin, long int* (**Func)(long int*, long int*, long int)) {
+	chrono::duration<double> time[7];//Vector will store my times of executions.
+	for(int i=0; i<6; i++) {
 		if(bin[i] == '1') {//Determine if certain search algorithm shall be executed.
-			auto start = chrono::high_resolution_clock::now();
-			Func[i](first, last, -4);//Executing search algorithm.
-			auto end = chrono::high_resolution_clock::now();
-			chrono::duration<double> diff = end-start;
-			time.push_back(diff);
+			for(int l=0; l<100; ++l) {
+				auto start = chrono::high_resolution_clock::now();
+				Func[i](first, last, -4);//Executing search algorithm.
+				auto end = chrono::high_resolution_clock::now();
+				chrono::duration<double> diff = end-start;
+				time[i] += diff;
+			}
+			cout << setw(21) << setfill(' ') << "Algorithm " << i+1 << ":     " << time[i].count() << endl;
 		}
 		else {
-			time.push_back(0);
+			auto start = chrono::high_resolution_clock::now();
+			time[i] = start-start;
 		}
 	}
 }
