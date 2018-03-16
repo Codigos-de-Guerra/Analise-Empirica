@@ -1,50 +1,90 @@
 #include "util.h"
 #include "search.h"
-#include <cstdlib>
  
 int main(int argc, char **argv) {
     /*
     Converting the string passed through command line into a 'long int';
     Must use this 'int' to determine how many tests cases shall be executed.
     */
+
+/*------------------------------------------------------------------------------------------------*/
+                               /*Arguments of line Section */
     if(argc != 3) { //If user do not input only the necessary inputs.
     	cerr << "Inputs on command line not defined correctly!" << endl;
     	return -1;
     }
-    istringstream ss(argv[1]);//Minimun space alocated my array may have.
-    int menor; //Minimum array size.
+    istringstream ss(argv[1]);      //Minimun space alocated my array may have.
+    int menor;                      //Minimum array size.
     if (!(ss >> menor)) {           //Treating the possible error from user part, of not inputing a valid number.
         cerr << "Invalid number " << argv[1] << '\n';
         return -2;
     }
 
-    istringstream zs(argv[2]);//Binary representing the Search algorithms wished to use.
-    string bin; //Pass this value as a string to 'bin'.
-    zs >> bin;
-    if(bin.size() != 6) { //As I have 7 Search Algorithms.
+    istringstream zs(argv[2]);      //Binary representing the Search algorithms wished to use.
+    string bin;                     //Pass this value as a string to 'bin'.
+    zs >> bin;                      //Through string stream, receives the second value on command line.
+
+    if(bin.size() != 7) {           //As I have 7 Search Algorithms.
     	cerr << "Invalid number " << argv[2] << ". Must have width 7!" << endl;
     	return -3;
     }
-    for(int j=0; j<6; ++j) {
+    for(int j=0; j<7; ++j) {
     	if(bin[j] != '1' && bin[j] != '0') {
     		cerr << "Invalid number " << argv[2] << ". Must be in Binary form!" << endl;
     		return -4;
     	}
     }
-
-
-    cout << "Lower value alocated to our array :" << menor << endl;
-    long int *A =(long int*) calloc(10000000, sizeof(long int));
-    for(int i=0; i<10000000; i++) {
+    cout << endl;
+/*------------------------------------------------------------------------------------------------*/
+                                      /* Array Section */
+    cout << "Initialing Array...." << endl;
+    long int *A; //=(long int*) calloc(10000000, sizeof(long int));
+    A = new long int[100000000];
+    for(int i=0; i<100000000; i++) {
     	A[i] = i+5;
     }
-
+    cout << "\033[1;33mFinished Array!\033[0m" << endl << endl;
+/*------------------------------------------------------------------------------------------------*/
+                             /* Calculating Algorithms Section */
     long int* (**Func)(long int*, long int*, long int) = Pointer_to_Func();
 
-    for(int i=0; i<25; ++i) {
-    	cout << "Array size:" << setw(9) << menor+i*(MAXT-menor)/25 << endl;
-    	ExecFunc(A, A+(menor+i*(MAXT-menor)/25), bin, Func);
-    	cout << endl;
+    chrono::duration<double> **tt;
+    tt = new chrono::duration<double>*[26];
+    *tt = new chrono::duration<double>[7];
+
+    cout << "Calculating Searching Times...." << endl;
+    for(int i=0; i<=25; ++i) {
+        *(tt+i) = ExecFunc(A, A+(menor+i*(MAXT-menor)/25), bin, Func);
+    }
+    cout << "\033[1;33mFinished all Calculations!\033[0m" << endl << endl;
+
+/*------------------------------------------------------------------------------------------------*/
+                                /* Printing Chart Section */
+    cout << "Print chart with executions times? (y or n)." << endl;
+    char qq;
+    cin >> qq;
+    if(qq == 'y' || qq == 'Y') {
+        cout << "#Size";
+        string t[] = {"ILS", "IBS", "RBS", "ITS", "RTS", "FBS", "JS"};
+        for(int i=0; i<7; ++i) {
+            if(bin[i] == '1') {
+                cout << setw(16) << right << t[i] << "     ";
+            }
+        }
+        cout << endl << endl;
+        for(int i=0; i<=25; ++i) {
+            cout << setw(12) << left << menor+i*(MAXT-menor)/25;
+            for(int j=0; j<7; ++j) {
+                cout << setw(18) << left << scientific << setprecision(8) << tt[i][j].count() << "   ";
+            }
+            cout << endl;
+        }
+    }
+    else if(qq == 'n' || qq == 'N') {
+        cout << "Program finished successfully!" << endl;
+    }
+    else {
+        cerr << "You were supposed to insert 'y' or 'n'. Are you idiot?" << endl;
     }
 
 	/*Defining 'Func' as an array that stores all my search algorithms.
@@ -74,5 +114,6 @@ int main(int argc, char **argv) {
     //         cout << ">>> Value \"" << e << "\" not found in array!\n";
     //     }
     // }
+    delete[] A;
     return 0;
 }
