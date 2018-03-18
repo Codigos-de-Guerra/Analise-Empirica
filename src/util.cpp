@@ -31,11 +31,14 @@ chrono::duration<double>* ExecFunc(long int *first, long int *last, string bin, 
 			tempos[0] = x-x; //Initiate with null value.
 
 			for(int l=1; l<101; ++l) {
-				auto start = chrono::high_resolution_clock::now();	//Time before search.
-				Func[0](first, last, -4);//Executing search algorithm.
-				auto end = chrono::high_resolution_clock::now();	//Time after search.
-				chrono::duration<double> diff = end-start;			//Difference of time.
+				chrono::steady_clock::time_point start, end;
+				start = chrono::steady_clock::now();		//Time before search.
 
+				Func[0](first, last, 2);				//Executing search algorithm.
+
+				end = chrono::steady_clock::now();		//Time after search.
+
+				chrono::duration<double> diff = end - start;		//Difference of time.
 				tempos[l] = tempos[l-1] + (diff-tempos[l-1])/l;		//Updating average.
 			}
 

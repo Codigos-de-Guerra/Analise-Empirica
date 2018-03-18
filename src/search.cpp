@@ -2,6 +2,7 @@
 extern int __dso_handle;
 
 long int* lsearch(long int *first, long int *last, long int value) {
+    cout << "Executing Linear" << endl;
     while(first != last) {
         if(value == *first) {
             return first; //Element found.
@@ -12,6 +13,7 @@ long int* lsearch(long int *first, long int *last, long int value) {
 }
 
 long int* i_bsearch(long int *first, long int *last, long int value) {
+    cout << "Executing Binaria" << endl;
     long int *news = last;                                                             //Constant pointer to beyond my array size.
     while(first <= last) {
         long int pos = (last-first)/2;                                                 //Integer that represents the half of the current array size.
@@ -58,6 +60,7 @@ long int* r_bsearch(long int *first, long int *last, long int value) {
 }
 
 long int* i_tsearch(long int *first, long int *last, long int value) {
+    cout << "Executing Ternaria" << endl;
     long int *news = last;                          //Constant pointer to beyond my original array size.
     while(first <= last) {
         long int t1_marker = (last-first)/3;        //Index to the end of the first third from my array.
@@ -137,6 +140,7 @@ long int* r_tsearch(long int *first, long int *last, long int value) {
 }
 
 long int* fib_search(long int *first, long int *last, long int value) {
+    cout << "Executing Fib" << endl;
     //Initializing Fibonacci sequence.
     long int fibT_2 = 0; //(t-2)'th Fibonacci number.
     long int fibT_1 = 1; //(t-1)'th Fibonacci number.
@@ -178,6 +182,7 @@ long int* fib_search(long int *first, long int *last, long int value) {
 }
 
 long int* jsearch(long int *first, long int *last,long int value) {
+    cout << "Executing Jump" << endl;
     long int m=sqrt(distance(first,last));                          //Getting the value of blocks.
     long int k;
     for( k=0; k*m < distance(first,last); k++) {                    //Only checks those blocks that have a non-Null index value.

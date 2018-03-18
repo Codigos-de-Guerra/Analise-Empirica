@@ -9,29 +9,36 @@ int main(int argc, char **argv) {
 
 /*------------------------------------------------------------------------------------------------*/
                                /*Arguments of line Section */
-    if(argc != 3) { //If user do not input only the necessary inputs.
+    if(argc != 4) { //If user do not input only the necessary inputs.
     	cerr << "Inputs on command line not defined correctly!" << endl;
     	return -1;
     }
     istringstream ss(argv[1]);      //Minimun space alocated my array may have.
     int menor;                      //Minimum array size.
     if (!(ss >> menor)) {           //Treating the possible error from user part, of not inputing a valid number.
-        cerr << "Invalid number " << argv[1] << '\n';
+        cerr << "Invalid number " << argv[1] << endl;
         return -2;
     }
 
-    istringstream zs(argv[2]);      //Binary representing the Search algorithms wished to use.
+    istringstream cs(argv[2]);      //Number of tests case.
+    int num_test;                   //Case tests.
+    if(!(cs >> num_test)) {         ////Treating the possible error from user part, of not inputing a valid number.
+        cerr << "Invalid number " << argv[2] << endl;
+        return -3;
+    }
+
+    istringstream zs(argv[3]);      //Binary representing the Search algorithms wished to use.
     string bin;                     //Pass this value as a string to 'bin'.
     zs >> bin;                      //Through string stream, receives the second value on command line.
 
     if(bin.size() != 7) {           //As I have 7 Search Algorithms.
-    	cerr << "Invalid number " << argv[2] << ". Must have width 7!" << endl;
-    	return -3;
+    	cerr << "Invalid number " << argv[3] << ". Must have width 7!" << endl;
+    	return -4;
     }
     for(int j=0; j<7; ++j) {
     	if(bin[j] != '1' && bin[j] != '0') {
-    		cerr << "Invalid number " << argv[2] << ". Must be in Binary form!" << endl;
-    		return -4;
+    		cerr << "Invalid number " << argv[3] << ". Must be in Binary form!" << endl;
+    		return -5;
     	}
     }
     cout << endl;
@@ -43,26 +50,38 @@ int main(int argc, char **argv) {
     for(int i=0; i<100000000; i++) {
     	A[i] = i+5;
     }
-    cout << "\033[1;33mFinished Array!\033[0m" << endl << endl;
+    cout << "\033[1;32mFinished Array!\033[0m" << endl << endl;
 /*------------------------------------------------------------------------------------------------*/
                              /* Calculating Algorithms Section */
-    long int* (**Func)(long int*, long int*, long int) = Pointer_to_Func();
+    long int* (**Func)(long int*, long int*, long int) = Pointer_to_Func(); //Array of pointers to functions.
 
     chrono::duration<double> **tt;
-    tt = new chrono::duration<double>*[26];
+    tt = new chrono::duration<double>*[num_test+1];
     *tt = new chrono::duration<double>[7];
 
     cout << "Calculating Searching Times...." << endl;
-    for(int i=0; i<=25; ++i) {
-        *(tt+i) = ExecFunc(A, A+(menor+i*(MAXT-menor)/25), bin, Func);
+    for(int i=0; i<=num_test; ++i) {
+        /*if((i != 0 && i != 25) && i % 5 == 0) */cout << "Calculated... " << i << "%." << endl;
+        *(tt+i) = ExecFunc(A, A+(menor+i*(MAXT-menor)/num_test), bin, Func);
     }
-    cout << "\033[1;33mFinished all Calculations!\033[0m" << endl << endl;
+    cout << "\033[1;32mFinished all Calculations!\033[0m" << endl << endl;
+    /* Something to test--------------
+    long int kk = 85;
+    auto rqew = Func[3](A, A+1000000, kk);
+    if(rqew != A+1000001) {
+        cout << ">>> Found \"" << kk << "\" at position " << distance(A, rqew) << ".\n";
+    }
+    else {
+        cout << ">>> Value \"" << kk << "\" not found in array!\n";
+    }
+    Test until here----------------------- */
 
 /*------------------------------------------------------------------------------------------------*/
                                 /* Printing Chart Section */
     cout << "Print chart with executions times? (y or n)." << endl;
     char qq;
     cin >> qq;
+    cout << endl;
     if(qq == 'y' || qq == 'Y') {
         cout << "#Size";
         string t[] = {"ILS", "IBS", "RBS", "ITS", "RTS", "FBS", "JS"};
@@ -72,10 +91,12 @@ int main(int argc, char **argv) {
             }
         }
         cout << endl << endl;
-        for(int i=0; i<=25; ++i) {
-            cout << setw(12) << left << menor+i*(MAXT-menor)/25;
+        for(int i=0; i<=num_test; ++i) {
+            cout << setw(12) << left << menor+i*(MAXT-menor)/num_test;
             for(int j=0; j<7; ++j) {
-                cout << setw(18) << left << scientific << setprecision(8) << tt[i][j].count() << "   ";
+                if(bin[j] == '1') {
+                    cout << setw(18) << left << scientific << setprecision(8) << tt[i][j].count() << "   ";
+                }
             }
             cout << endl;
         }
@@ -114,6 +135,8 @@ int main(int argc, char **argv) {
     //         cout << ">>> Value \"" << e << "\" not found in array!\n";
     //     }
     // }
+    delete[] Func;
+    delete[] tt;
     delete[] A;
     return 0;
 }
