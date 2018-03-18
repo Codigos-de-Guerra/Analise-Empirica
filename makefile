@@ -12,7 +12,7 @@ bindir = ./bin
 CC = g++
 CFLAGS = -Wall -Wextra -std=c++11 -lm -I$(incdir)
 RM = -rm 
-OBJS = $(addprefix $(objdir)/,search.o util.o)
+OBJS = $(addprefix $(objdir)/,search.o util.o write.o)
 
 # Phony targets (for more information, visit https://www.gnu.org/software/make/manual/make.html#Phony-Targets)
 .PHONY: clean cleanobj cleanbin
@@ -25,13 +25,16 @@ all: build main
 main: analise
 
 # Use "make build" to build all the modules
-build: util search
+build: util search write
 
 # Use "make util" to build only the util module
 util: $(objdir)/util.o
 
 # Use "make search" to build only the search module
 search: $(objdir)/search.o
+
+# Use "make write" to build only the write module
+write: $(objdir)/write.o
 
 # Compiles the main
 analise: $(srcdir)/main.cpp $(OBJS)
@@ -48,11 +51,16 @@ $(objdir)/search.o: $(srcdir)/search.cpp $(incdir)/search.h $(incdir)/util.h
 	mkdir -p $(objdir)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Builds only the writing module
+$(objdir)/write.o: $(srcdir)/write.cpp $(incdir)/write.h $(incdir)/util.h
+	mkdir -p $(objdir)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 # Removes all objects
 cleanobj:
 	$(RM) $(objdir)/*.o
 
-# Removes all executables
+# Removes all outputs
 cleanbin:
 	$(RM) $(bindir)/*
 

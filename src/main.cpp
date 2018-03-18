@@ -1,5 +1,6 @@
 #include "util.h"
 #include "search.h"
+#include "write.h"
  
 int main(int argc, char **argv) {
     /*
@@ -22,7 +23,7 @@ int main(int argc, char **argv) {
 
     istringstream cs(argv[2]);      //Number of tests case.
     int num_test;                   //Case tests.
-    if(!(cs >> num_test)) {         ////Treating the possible error from user part, of not inputing a valid number.
+    if(!(cs >> num_test)) {         //Treating the possible error from user part, of not inputing a valid number.
         cerr << "Invalid number " << argv[2] << endl;
         return -3;
     }
@@ -30,7 +31,6 @@ int main(int argc, char **argv) {
     istringstream zs(argv[3]);      //Binary representing the Search algorithms wished to use.
     string bin;                     //Pass this value as a string to 'bin'.
     zs >> bin;                      //Through string stream, receives the second value on command line.
-
     if(bin.size() != 7) {           //As I have 7 Search Algorithms.
     	cerr << "Invalid number " << argv[3] << ". Must have width 7!" << endl;
     	return -4;
@@ -46,8 +46,8 @@ int main(int argc, char **argv) {
                                       /* Array Section */
     cout << "Initialing Array...." << endl;
     long int *A; //=(long int*) calloc(10000000, sizeof(long int));
-    A = new long int[100000000];
-    for(int i=0; i<100000000; i++) {
+    A = new long int[200000000];
+    for(int i=0; i<200000000; i++) {
     	A[i] = i+5;
     }
     cout << "\033[1;32mFinished Array!\033[0m" << endl << endl;
@@ -55,13 +55,15 @@ int main(int argc, char **argv) {
                              /* Calculating Algorithms Section */
     long int* (**Func)(long int*, long int*, long int) = Pointer_to_Func(); //Array of pointers to functions.
 
-    chrono::duration<double> **tt;
-    tt = new chrono::duration<double>*[num_test+1];
-    *tt = new chrono::duration<double>[7];
+    chrono::duration<double, milli> **tt;
+    tt = new chrono::duration<double, milli>*[num_test+1];
+    *tt = new chrono::duration<double, milli>[7];
 
     cout << "Calculating Searching Times...." << endl;
     for(int i=0; i<=num_test; ++i) {
-        /*if((i != 0 && i != 25) && i % 5 == 0) */cout << "Calculated... " << i << "%." << endl;
+        if((i != 0 && i != num_test) && i % (num_test/5) == 0) {       //Just printing a response to know if the program still is running.
+            cout << "Calculated... " << i*100/num_test << "%." << endl;
+        }
         *(tt+i) = ExecFunc(A, A+(menor+i*(MAXT-menor)/num_test), bin, Func);
     }
     cout << "\033[1;32mFinished all Calculations!\033[0m" << endl << endl;
@@ -82,25 +84,36 @@ int main(int argc, char **argv) {
     char qq;
     cin >> qq;
     cout << endl;
+    ofstream ofs;
+
     if(qq == 'y' || qq == 'Y') {
+        create_out(menor, num_test, bin, tt, ofs);
+    }
+        /*
         cout << "#Size";
+        ofs << "#Size";
         string t[] = {"ILS", "IBS", "RBS", "ITS", "RTS", "FBS", "JS"};
         for(int i=0; i<7; ++i) {
             if(bin[i] == '1') {
-                cout << setw(16) << right << t[i] << "     ";
+                cout << setw(14) << right << t[i] << "   ";
+                ofs << setw(14) << right << t[i] << "   ";
             }
         }
         cout << endl << endl;
+        ofs << endl << endl;
         for(int i=0; i<=num_test; ++i) {
             cout << setw(12) << left << menor+i*(MAXT-menor)/num_test;
+            ofs << setw(12) << left << menor+i*(MAXT-menor)/num_test;
             for(int j=0; j<7; ++j) {
                 if(bin[j] == '1') {
-                    cout << setw(18) << left << scientific << setprecision(8) << tt[i][j].count() << "   ";
+                    cout << setw(14) << left << setprecision(5) << tt[i][j].count() << "   ";
+                    ofs << setw(14) << left << setprecision(5) << tt[i][j].count() << "   ";
                 }
             }
-            cout << endl;
+            ofs << endl;
         }
     }
+    */
     else if(qq == 'n' || qq == 'N') {
         cout << "Program finished successfully!" << endl;
     }

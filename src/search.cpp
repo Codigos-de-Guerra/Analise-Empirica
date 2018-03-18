@@ -1,8 +1,6 @@
 #include "util.h"
-extern int __dso_handle;
 
 long int* lsearch(long int *first, long int *last, long int value) {
-    cout << "Executing Linear" << endl;
     while(first != last) {
         if(value == *first) {
             return first; //Element found.
@@ -13,11 +11,10 @@ long int* lsearch(long int *first, long int *last, long int value) {
 }
 
 long int* i_bsearch(long int *first, long int *last, long int value) {
-    cout << "Executing Binaria" << endl;
-    long int *news = last;                                                             //Constant pointer to beyond my array size.
+    long int *news = last;                              //Constant pointer to beyond my original array size.                                                  //Constant pointer to beyond my array size.
     while(first <= last) {
-        long int pos = (last-first)/2;                                                 //Integer that represents the half of the current array size.
-        auto m = first+pos;                                                            //Memory address to the middle of my current array size.
+        long int pos = (last-first)/2;                  //Integer that represents the half of the current array size.
+        auto m = first+pos;                             //Memory address to the middle of my current array size.
         if(value == *m) {
             return m; //Element found.
         }
@@ -60,7 +57,6 @@ long int* r_bsearch(long int *first, long int *last, long int value) {
 }
 
 long int* i_tsearch(long int *first, long int *last, long int value) {
-    cout << "Executing Ternaria" << endl;
     long int *news = last;                          //Constant pointer to beyond my original array size.
     while(first <= last) {
         long int t1_marker = (last-first)/3;        //Index to the end of the first third from my array.
@@ -91,7 +87,6 @@ long int* i_tsearch(long int *first, long int *last, long int value) {
 }
 
 long int* r_tsearch(long int *first, long int *last, long int value) {
-    long int *news = last;                             //Constant pointer to beyond my original array size.
     while(first <= last) {
         long int t1_marker = (last-first)/3;           //Index to the end of the first third from array.
         auto m1 = first+t1_marker;                     //Address to the end of first third of my array.
@@ -136,18 +131,17 @@ long int* r_tsearch(long int *first, long int *last, long int value) {
             }
         }
     }
-    return news; //Element not found.
+    return last; //Element not found.
 }
 
 long int* fib_search(long int *first, long int *last, long int value) {
-    cout << "Executing Fib" << endl;
     //Initializing Fibonacci sequence.
-    long int fibT_2 = 0; //(t-2)'th Fibonacci number.
-    long int fibT_1 = 1; //(t-1)'th Fibonacci number.
-    long int fibT = fibT_1 + fibT_2; //t'th Fibonacci number.
-    long int size = distance(first, last); //Array size.
+    long int fibT_2 = 0;                        //(t-2)'th Fibonacci number.
+    long int fibT_1 = 1;                        //(t-1)'th Fibonacci number.
+    long int fibT = fibT_1 + fibT_2;            //t'th Fibonacci number.
+    long int size = distance(first, last);      //Array size.
 
-    /*Finding smallest Fibonacci Number greater than or igual to array size. */
+    /*Finding smallest Fibonacci Number greater than or igual to array size.*/
     while(fibT < size) {
         fibT_2 = fibT_1;
         fibT_1 = fibT;
@@ -182,10 +176,9 @@ long int* fib_search(long int *first, long int *last, long int value) {
 }
 
 long int* jsearch(long int *first, long int *last,long int value) {
-    cout << "Executing Jump" << endl;
-    long int m=sqrt(distance(first,last));                          //Getting the value of blocks.
+    long int m=sqrt(distance(first,last));                    //Getting the value of blocks.
     long int k;
-    for( k=0; k*m < distance(first,last); k++) {                    //Only checks those blocks that have a non-Null index value.
+    for( k=0; k*m < distance(first,last); k++) {              //Only checks those blocks that have a non-Null index value.
         if(value == *(first+(k*m))) {
             return first+k*m; //Element found.
         }
