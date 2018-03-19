@@ -1,5 +1,9 @@
 #ifndef UTIL_H
 #define UTIL_H
+/*
+Util,h is our file '.h', where we store all includes
+in common need for the entire program.
+*/
 
 #include <iostream>
 #include <iomanip>
@@ -8,9 +12,9 @@
 #include <chrono>
 #include <cmath>
 #include <ratio>
-//#define MAXT 4100750
 #define MAXT 75500250
 using namespace std;
+//#define MAXT 4100750
 //using long int* (**)(long int*, long int*, long int) lili;
 
 //Function to generate my array of pointers to the search functions.

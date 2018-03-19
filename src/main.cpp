@@ -3,11 +3,6 @@
 #include "write.h"
  
 int main(int argc, char **argv) {
-    /*
-    Converting the string passed through command line into a 'long int';
-    Must use this 'int' to determine how many tests cases shall be executed.
-    */
-
 /*------------------------------------------------------------------------------------------------*/
                                /*Arguments of line Section */
     if(argc != 4) { //If user do not input only the necessary inputs.
@@ -44,8 +39,8 @@ int main(int argc, char **argv) {
     cout << endl;
 /*------------------------------------------------------------------------------------------------*/
                                       /* Array Section */
-    cout << "Initialing Array...." << endl;
-    long int *A; //=(long int*) calloc(10000000, sizeof(long int));
+    cout << "Initializing Array...." << endl;
+    long int *A;
     A = new long int[200000000];
     for(int i=0; i<200000000; i++) {
     	A[i] = i+5;
@@ -53,7 +48,9 @@ int main(int argc, char **argv) {
     cout << "\033[1;32mFinished Array!\033[0m" << endl << endl;
 /*------------------------------------------------------------------------------------------------*/
                              /* Calculating Algorithms Section */
-    long int* (**Func)(long int*, long int*, long int) = Pointer_to_Func(); //Array of pointers to functions.
+
+    /* Declaration of 'Func' as my array of pointers to functions. */
+    long int* (**Func)(long int*, long int*, long int) = Pointer_to_Func(); 
 
     chrono::duration<double, milli> **tt;
     tt = new chrono::duration<double, milli>*[num_test+1];
@@ -67,27 +64,17 @@ int main(int argc, char **argv) {
         *(tt+i) = ExecFunc(A, A+(menor+i*(MAXT-menor)/num_test), bin, Func);
     }
     cout << "\033[1;32mFinished all Calculations!\033[0m" << endl << endl;
-    /* Something to test--------------
-    long int kk = 85;
-    auto rqew = Func[3](A, A+1000000, kk);
-    if(rqew != A+1000001) {
-        cout << ">>> Found \"" << kk << "\" at position " << distance(A, rqew) << ".\n";
-    }
-    else {
-        cout << ">>> Value \"" << kk << "\" not found in array!\n";
-    }
-    Test until here----------------------- */
 
 /*------------------------------------------------------------------------------------------------*/
                                 /* Printing Chart Section */
-    cout << "Print chart with executions times? (y or n)." << endl;
+    cout << "Print chart with array sizes and respectively executions times? (y or n)." << endl;
     char qq;
     cin >> qq;
     cout << endl;
     ofstream ofs;
 
     if(qq == 'y' || qq == 'Y') {
-        create_out(menor, num_test, bin, tt, ofs);
+        create_out(menor, num_test, bin, tt, ofs, "out/Values.txt");
     }
         /*
         cout << "#Size";
@@ -121,33 +108,6 @@ int main(int argc, char **argv) {
         cerr << "You were supposed to insert 'y' or 'n'. Are you idiot?" << endl;
     }
 
-	/*Defining 'Func' as an array that stores all my search algorithms.
-    Func is a pointer of functions.
-    */
-
-	/*Use Argv to know how many test cases I must try
-	Look pdf for more details.*/
-
-
-    //long int A[] = {0,1,3,4,6,7,8,9,10,20,25,28};
-    //long int values[] = {0,2,3,4,6,7,8,28,9,10,5,1,25,22};
-    // long int A[] = {0,1,2,3,4,5,6,7,8,9,15};
-    // long int values[] = {0,1,2,3,4,5,6,7,8,9,-4,22,13};
-    // cout << "Array = [ ";
-    // for(auto& it : A) {
-    //     cout << it << " ";
-    // }
-    // cout << "]" << endl;
-    // for(auto &e : values) {
-    //     auto r = Func[3](begin(A), end(A), e);
-
-    //     if(r != end(A)) {
-    //         cout << ">>> Found \"" << e << "\" at position " << distance(begin(A),r) << ".\n";
-    //     }
-    //     else {
-    //         cout << ">>> Value \"" << e << "\" not found in array!\n";
-    //     }
-    // }
     delete[] Func;
     delete[] tt;
     delete[] A;

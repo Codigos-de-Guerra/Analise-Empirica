@@ -1,7 +1,6 @@
 #ifndef SEARCH_H
 #define SEARCH_H
-#include "util.h"
-//Here we keep or search algorithms.
+//Here we keep our search algorithms.
 
 long int* lsearch(long int *first,long int *last,long int value);					//Iterative Linear search;
 long int* i_bsearch(long int *first,long int *last,long int value);					//Iterative Binary Search;

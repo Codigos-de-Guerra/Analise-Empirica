@@ -1,4 +1,3 @@
-
 # Makefile conventions
 SHELL = /bin/sh
 
@@ -6,7 +5,7 @@ SHELL = /bin/sh
 incdir = ./include
 srcdir = ./src
 objdir = ./obj
-bindir = ./bin
+outdir = ./out
 
 # Macros
 CC = g++
@@ -15,7 +14,7 @@ RM = -rm
 OBJS = $(addprefix $(objdir)/,search.o util.o write.o)
 
 # Phony targets (for more information, visit https://www.gnu.org/software/make/manual/make.html#Phony-Targets)
-.PHONY: clean cleanobj cleanbin
+.PHONY: clean cleanobj cleanout
 .PHONY: all main build search
 
 # Use "make" to execute everything
@@ -38,11 +37,11 @@ write: $(objdir)/write.o
 
 # Compiles the main
 analise: $(srcdir)/main.cpp $(OBJS)
-	# mkdir -p $(bindir)
+	mkdir -p $(outdir)
 	$(CC) $(CFLAGS) $^ -o $@
 
 # Builds only the util module
-$(objdir)/util.o: $(srcdir)/util.cpp $(incdir)/util.h
+$(objdir)/util.o: $(srcdir)/util.cpp $(incdir)/util.h $(incdir)/search.h
 	mkdir -p $(objdir)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -62,7 +61,7 @@ cleanobj:
 
 # Removes all outputs
 cleanbin:
-	$(RM) $(bindir)/*
+	$(RM) $(outdir)/*
 
 # Removes all executables and all objects
-clean: cleanobj cleanbin 
+clean: cleanobj cleanout 

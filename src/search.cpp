@@ -1,3 +1,4 @@
+#include "search.h"
 #include "util.h"
 
 long int* lsearch(long int *first, long int *last, long int value) {
