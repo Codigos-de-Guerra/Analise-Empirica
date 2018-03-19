@@ -12,16 +12,18 @@ in common need for the entire program.
 #include <chrono>
 #include <cmath>
 #include <ratio>
-#define MAXT 75500250
-using namespace std;
+#include <stdlib.h>
+
 //#define MAXT 4100750
-//using long int* (**)(long int*, long int*, long int) lili;
+//#define MAXT 75500250
+using namespace std;
+using Ptr_Func = long int* (*)(long int*, long int*, long int, int&);
 
 //Function to generate my array of pointers to the search functions.
-long int* (**Pointer_to_Func(void))(long int*, long int*, long int);
+Ptr_Func* Pointer_to_Func(void);
 
 //Function to execute the desired search algorithms and make a calculation on the time averages on milliseconds.
 //Returns a pointer containing all time averages of each desired search algorithm on milliseconds.
-chrono::duration<double, milli>* ExecFunc(long int *first, long int *last, string bin, long int* (**Func)(long int*, long int*, long int));
+chrono::duration<double, milli> ExecFunc(long int *first, long int *last, Ptr_Func Func, int &steps);
 
 #endif

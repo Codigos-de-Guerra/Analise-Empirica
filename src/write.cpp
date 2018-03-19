@@ -1,58 +1,60 @@
 #include "write.h"
 
-void create_out(int menor, int num_test, string bin, chrono::duration<double, milli> **tempo, ofstream& ofs_, string filename) {
-    /*Output file containing all algorithms informations.*/
-    ofs_.open(filename.c_str());
-
-    /*Output file for each algorithm. Contains the data only for one algorithm.*/
-    ofstream new_outfile;
-    size_t dot = filename.find('.');    //Location where I shall change filename.
-    string temp;                        //Name for each output file. Keeps changing it's name.
-
-    cout << "#Size";
-    ofs_ << "#Size";
+void TimeFile(int menor, int maior, int casos, string bin, chrono::duration<double, milli> **tempo, ofstream& ofs_, string filename, int **passos) {
+    /*Output file containing information over array size and time spent on search.*/
+    size_t dot = filename.find('.');
     string t[] = {"ILS", "IBS", "RBS", "ITS", "RTS", "FBS", "JS"};
-    for(int i=0; i<7; ++i) {
-        if(bin[i] == '1') {
-            temp.assign(filename);          //Restarting string 'temp' as original parameter 'filename'.
-            temp.insert(dot, "_");          //Putting a '_' right before the dot in string 'filename'.(temp). 
-            temp.insert(dot+1, t[i]);       //Putting Algorithm name, to differ one graphic from another. 
+    string temp;                                //String where i will store my temporaly filenames.
 
-            new_outfile.open(temp.c_str()); //Opens output stream.
-            new_outfile << "#Size";
-            //ofs_.open("out/graficos.txt"); //How to change a file name, based on an variable.
-            /*
-            Quero criar gráfico1.txt, gráfico2.txt,...,gráfico7.txt, um pra cada algoritmo
-            aí tipo, se bin[i] tiver '1'(se eu quiser usar o algortimo), então eu dou
-            open() e close() dentro de cada if. Porém quero introduzir a variável 'i' 
-            no nome do arquivo saída.
-            */
-            /*Writing the algorithms used on Terminal and outputs files.*/
-            cout << setw(14) << right << t[i] << "   ";
-            ofs_ << setw(14) << right << t[i] << "   ";
-            new_outfile << setw(14) << right << t[i] << "   " << endl << endl;
-            for(int j=0; j<=num_test; ++j) {
-                new_outfile << setw(12) << left << menor+j*(MAXT-menor)/num_test;
-                new_outfile << setw(14) << left << setprecision(7) << tempo[j][i].count() << "   ";
-                new_outfile << endl;
-            }
-            new_outfile.close();        //Closes output stream.
-        }
-    }
-    cout << endl << endl;
-    ofs_ << endl << endl;
-    for(int i=0; i<=num_test; ++i) {
-        cout << setw(12) << left << menor+i*(MAXT-menor)/num_test;
-        ofs_ << setw(12) << left << menor+i*(MAXT-menor)/num_test;
-        for(int j=0; j<7; ++j) {
+    for(int i=0; i<=casos; i++) {
+        /*Now, I also print some of the information adquired on the terminal.*/
+        cout << "Algorithm    " << "#Size      " << "Time       " << "Iterations" << endl;
+        cout << setw(50) << setfill('-') << ": ";
+        cout << endl;
+        for(int j=0; j<7; j++) {
             if(bin[j] == '1') {
-                cout << setw(14) << left << setprecision(7) << tempo[i][j].count() << "   ";
-                ofs_ << setw(14) << left << setprecision(7) << tempo[i][j].count() << "   ";
+                temp.assign(filename);                  //Restarting string 'temp' as original parameter 'filename'.
+                temp.insert(dot, "_");                  //Putting a '_' right before the dot in string 'filename'.(temp).
+                temp.insert(dot+1, t[j]);               //Putting Algorithm name, to differ one file from another. 
+
+                ofs_.open(temp.c_str(), ofstream::app);        //Opens output stream.
+                ofs_ << menor+i*(maior-menor)/casos << " ";         //Printing on file the size of analised array.
+                ofs_ << tempo[i][j].count() << endl;                //Printing on file the time spent com it's correspondent array size.
+
+                /*Here, I print on the terminal as well.*/
+                if(j==6) {
+                    cout << t[j] << ":        " << menor+i*(maior-menor)/casos << "      " << tempo[i][j].count() << "ms     " << passos[i][j] << " iterations." << endl;
+                    continue;
+                }
+                cout << t[j] << ":       " << menor+i*(maior-menor)/casos << "      " << tempo[i][j].count() << "ms       " << passos[i][j] << " iterations." << endl;
+                ofs_.close();
             }
         }
-        ofs_ << endl;
         cout << endl;
     }
-
-    ofs_.close();
 }
+
+void StepFile(int menor, int maior, int casos, string bin, int **passos, ofstream& ofs_, string filename) {
+    /*Outout file containing information over array size in association with steps took by the main function on determined search algorithm.*/
+    size_t dot = filename.find('.');
+    string t[] = {"ILS", "IBS", "RBS", "ITS", "RTS", "FBS", "JS"};
+    string temp;                                //String where i will store my temporaly filenames.
+
+    for(int j=0; j<7; j++) {
+        if(bin[j] == '1') {
+            temp.assign(filename);                  //Restarting string 'temp' as original parameter 'filename'.
+            temp.insert(dot, "_");                  //Putting a '_' right before the dot in string 'filename'.(temp).
+            temp.insert(dot+1, t[j]);               //Putting Algorithm name, to differ one file from another. 
+            ofs_.open(temp.c_str(), ofstream::app);             //Opens output stream.
+            for(int i=0; i<=casos; i++) {
+                ofs_ << menor+i*(maior-menor)/casos << " ";         //Printing on file the size of analised array.
+                ofs_ << passos[i][j] << endl;                //Printing on file the time spent com it's correspondent array size.
+            }
+            ofs_.close();
+        }
+    }
+}
+
+//void Steps_out(int menor, int num_test, string bin, ofstream& ofs_, string filename) {
+    /* Output file containing number of iterations per */
+//}
