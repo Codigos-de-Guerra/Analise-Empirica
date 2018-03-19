@@ -1,5 +1,6 @@
 #ifndef WRITE_H
 #define WRITE_H
+
 #include "util.h"
 /*
 Procedure to output chart containing times and Algorithms

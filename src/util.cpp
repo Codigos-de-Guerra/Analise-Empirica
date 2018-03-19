@@ -1,10 +1,10 @@
 #include "util.h"
 #include "search.h"
 
-long int* (**Pointer_to_Func(void))(long int*, long int*, long int) {
+long int* (**Pointer_to_Func(void))(long int*, long int*, long int, long int*) {
 	//Function that receives no parameter, but returns a long int* with (long int*, long int*, long int) as parameters.
 	//This shall return my array of pointers of search algorithms.
-	long int* (**func)(long int*, long int*, long int) = (long int*(**)(long int*, long int*, long int)) calloc(7, sizeof(*func));
+	long int* (**func)(long int*, long int*, long int, long int*) = (long int*(**)(long int*, long int*, long int, long int*)) calloc(7, sizeof(*func));
 	func[0] = &lsearch;
 	func[1] = &i_bsearch;
 	func[2] = &r_bsearch;
@@ -16,7 +16,7 @@ long int* (**Pointer_to_Func(void))(long int*, long int*, long int) {
 	return func;
 }
 
-chrono::duration<double, milli>* ExecFunc(long int *first, long int *last, string bin, long int* (**Func)(long int*, long int*, long int)) {
+chrono::duration<double, milli>* ExecFunc(long int *first, long int *last, string bin, long int* (**Func)(long int*, long int*, long int, long int*)) {
 	chrono::duration<double, milli> *t_time;				//Array will store average time spent on each execution.
 	t_time = new chrono::duration<double, milli>[7];
 	for(int i=0; i<7; i++) {
