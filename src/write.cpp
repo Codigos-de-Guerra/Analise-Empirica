@@ -1,6 +1,6 @@
 #include "write.h"
 
-void TimeFile(int menor, int maior, int casos, string bin, chrono::duration<double, milli> **tempo, ofstream& ofs_, string filename) {
+void TimeFile(int menor, int maior, int casos, string bin, chrono::duration<double> **tempo, ofstream& ofs_, string filename) {
     /*Output file containing information over array size and time spent on search.*/
     size_t dot = filename.find('.');
     string t[] = {"ILS", "IBS", "RBS", "ITS", "RTS", "FBS", "JS"};			//Just a reference to algorithms used.
@@ -15,7 +15,7 @@ void TimeFile(int menor, int maior, int casos, string bin, chrono::duration<doub
 
       		for(int i=0; i<=casos; i++) {
             	ofs_ << menor+i*(maior-menor)/casos << " ";         //Printing on file the size of analised array.
-            	ofs_ << tempo[i][j].count() << endl;                //Printing on file the time spent com it's correspondent array size.l;
+            	ofs_ << fixed << setprecision(12) << tempo[i][j].count() << endl;                //Printing on file the time spent com it's correspondent array size.l;
        		}
             ofs_.close();
     	}
@@ -44,7 +44,7 @@ void StepFile(int menor, int maior, int casos, string bin, int **passos, ofstrea
     }
 }
 
-void printTerminal(int menor, int maior, int casos, string bin, chrono::duration<double, milli> **tempo, int **passos) {
+void printTerminal(int menor, int maior, int casos, string bin, chrono::duration<double> **tempo, int **passos) {
     /*Prints onto terminal all informations obtained in a human readable format.*/
     string t[] = {"ILS", "IBS", "RBS", "ITS", "RTS", "FBS", "JS"};				//Just a reference to algorithms used.
 
@@ -56,10 +56,10 @@ void printTerminal(int menor, int maior, int casos, string bin, chrono::duration
       	for(int j=0; j<7; j++) {
         	if(bin[j] == '1') {
             	if(j==6) {				//Just a fix for organization of information displayed onto terminal.
-                	cout << t[j] << ":        " << menor+i*(maior-menor)/casos << "      " << tempo[i][j].count() << "ms     " << passos[i][j] << " iterations." << endl;
+                	cout << t[j] << ":        " << menor+i*(maior-menor)/casos << "      " << tempo[i][j].count() << "s     " << passos[i][j] << " iterations." << endl;
                 	continue;
             	}
-            cout << t[j] << ":       " << menor+i*(maior-menor)/casos << "      " << tempo[i][j].count() << "ms       " << passos[i][j] << " iterations." << endl;
+            cout << t[j] << ":       " << menor+i*(maior-menor)/casos << "      "<< fixed << setprecision(12) << tempo[i][j].count() << "s       " << passos[i][j] << " iterations." << endl;
        		}
     	}
         cout << endl;

@@ -18,11 +18,11 @@ Ptr_Func *Pointer_to_Func(void) {
 	return func;
 }
 
-chrono::duration<double, milli> ExecFunc(long int *first, long int *last, Ptr_Func Func, int &steps) {
-	chrono::duration<double, milli> t_time;				//Array will store average time spent on each execution.
+chrono::duration<double> ExecFunc(long int *first, long int *last, Ptr_Func Func, int &steps) {
+	chrono::duration<double> t_time;				//Array will store average time spent on each execution.
 
-	chrono::duration<double, milli> *tempos;
-	tempos = new chrono::duration<double, milli>[102];		//Temporaly array to calculate average time.
+	chrono::duration<double> *tempos;
+	tempos = new chrono::duration<double>[102];		//Temporaly array to calculate average time.
 	/*
 	Array to calculate the average of time spent on 100 searchs of the same type.
 	*/
@@ -38,10 +38,9 @@ chrono::duration<double, milli> ExecFunc(long int *first, long int *last, Ptr_Fu
 		Func(first, last, 2, counter);
 
 		end = chrono::steady_clock::now();							//Time after search.
-		chrono::duration<double, milli> diff = end - start;		//Difference of time.
+		chrono::duration<double> diff = end - start;		//Difference of time.
 		tempos[l] = tempos[l-1] + (diff-tempos[l-1])/l;			//Updating average.
 
-		//cout << diff.count() << endl;
 	}
 	steps = counter;					//Passing iterations taken.
 	t_time = tempos[100];				//Passing the average time spent on search.

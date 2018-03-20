@@ -49,8 +49,8 @@ int main(int argc, char **argv) {
                                       /* Array Section */
     cout << "Initializing Array...." << endl;
     long int *A;
-    A = new long int[100000000];
-    for(int i=0; i<100000000; i++) {
+    A = new long int[300000000];
+    for(int i=0; i<300000000; i++) {
     	A[i] = i+5;
     }
     cout << "\033[1;32mFinished Array!\033[0m" << endl << endl;
@@ -60,9 +60,9 @@ int main(int argc, char **argv) {
     /* Declaration of 'Func' as my array of pointers to functions. */
     Ptr_Func *Func = Pointer_to_Func(); 
 
-    chrono::duration<double, milli> **tt = new chrono::duration<double, milli>*[num_test+1];
+    chrono::duration<double> **tt = new chrono::duration<double>*[num_test+1];
     for(int i=0; i<num_test+1; i++) {
-    	tt[i] = new chrono::duration<double, milli>[7];
+    	tt[i] = new chrono::duration<double>[7];
     }
     
     int **steps = new int*[num_test+1];
@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
     								/* Making output files */
     ofstream ofsT;
     ofstream ofsS;
-    TimeFile(menor, maior, num_test, bin, tt, ofsT, "out/Tempo(ms).txt");
+    TimeFile(menor, maior, num_test, bin, tt, ofsT, "out/Tempo(s).txt");
     StepFile(menor, maior, num_test, bin, steps, ofsS, "out/Passos.txt");
 
     ofsT.close();
@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
 
 /*------------------------------------------------------------------------------------------------*/
                                 /* Printing Chart Section */
-    cout << "Print chart with array sizes and respectively executions times? (y or n)." << endl;
+    cout << "Print chart with array sizes and respectively executions times and iterations? (y or n)." << endl;
     char qq;
     cin >> qq;
     cout << endl;

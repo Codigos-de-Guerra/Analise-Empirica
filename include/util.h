@@ -20,6 +20,6 @@ Ptr_Func* Pointer_to_Func(void);
 
 //Function to execute the desired search algorithms and make a calculation on the time averages on milliseconds.
 //Returns a pointer containing all time averages of each desired search algorithm on milliseconds.
-chrono::duration<double, milli> ExecFunc(long int *first, long int *last, Ptr_Func Func, int &steps);
+chrono::duration<double> ExecFunc(long int *first, long int *last, Ptr_Func Func, int &steps);
 
 #endif
