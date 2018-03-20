@@ -1,9 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
-/*
-Util,h is our file '.h', where we store all includes
-in common need for the entire program.
-*/
+/*Util,h is our file '.h', where we store all includes in common need for the entire program.*/
+/*-------------------------------------------------------------------------------------------------*/
 
 #include <iostream>
 #include <iomanip>
@@ -14,8 +12,6 @@ in common need for the entire program.
 #include <ratio>
 #include <stdlib.h>
 
-//#define MAXT 4100750
-//#define MAXT 75500250
 using namespace std;
 using Ptr_Func = long int* (*)(long int*, long int*, long int, int&);
 

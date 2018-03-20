@@ -1,7 +1,6 @@
 #include "search.h"
 #include "util.h"
 
-<<<<<<< HEAD
 /*---------------------------------------------------------------------------------------------------------------------------*/
     /*  Counter is the variable that will count how many iterations are being made on each search for each array size.    */
 /*---------------------------------------------------------------------------------------------------------------------------*/
@@ -9,11 +8,6 @@
 long int* lsearch(long int *first, long int *last, long int value, int& counter) {
     while(first != last) {
         counter++;
-=======
-long int* lsearch(long int *first, long int *last, long int value, long int *counter) {
-    while(first != last) {
-    	(*counter)++;					//Passos incrementados a cada iteração.
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
         if(value == *first) {
             return first; //Element found.
         }
@@ -22,17 +16,10 @@ long int* lsearch(long int *first, long int *last, long int value, long int *cou
     return last; //Element not found.
 }
 
-<<<<<<< HEAD
 long int* i_bsearch(long int *first, long int *last, long int value, int& counter) {
     long int *news = last;                              //Constant pointer to beyond my original array size.                                                  //Constant pointer to beyond my array size.
     while(first <= last) {
         counter++;
-=======
-long int* i_bsearch(long int *first, long int *last, long int value, long int *counter) {
-    long int *news = last;                              //Constant pointer to beyond my original array size.                                                  //Constant pointer to beyond my array size.
-    while(first <= last) {
-    	*(counter)++;										//Iterations incremented.
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
         long int pos = (last-first)/2;                  //Integer that represents the half of the current array size.
         auto m = first+pos;                             //Memory address to the middle of my current array size.
         if(value == *m) {
@@ -45,30 +32,20 @@ long int* i_bsearch(long int *first, long int *last, long int value, long int *c
             first = m+1;
         }
     }
-    *(counter)++;
     return news; //Element not found.
 }
 
-<<<<<<< HEAD
 long int* r_bsearch(long int *first, long int *last, long int value, int& counter) {
     counter++;
-=======
-long int* r_bsearch(long int *first, long int *last, long int value, long int *counter) {
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
     long int mid_vector = (last - first)/2;
     auto m = first+mid_vector;
-    *(counter)++;
     //Creates a 'm' variable to keep track of the center of the current array size.
     if(first <= last) {
         if (*m == value) {
             return m; //Element found.
         }
         else if(value < *m){
-<<<<<<< HEAD
             auto s = r_bsearch(first,m-1,value,counter);
-=======
-            auto s = r_bsearch(first,m-1,value, counter);
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
             /*
             Checks if the found memory address really refers to or value.
             If it does, return it, otherwise, return outside the array.
@@ -81,27 +58,16 @@ long int* r_bsearch(long int *first, long int *last, long int value, long int *c
             }
         }
         else {
-<<<<<<< HEAD
             return r_bsearch(m+1,last,value,counter);
-=======
-            return r_bsearch(m+1,last,value, counter);
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
         }
     }
     return last; //Element not found.
 }
 
-<<<<<<< HEAD
 long int* i_tsearch(long int *first, long int *last, long int value, int& counter) {
     long int *news = last;                          //Constant pointer to beyond my original array size.
     while(first < last) {
         counter++;
-=======
-long int* i_tsearch(long int *first, long int *last, long int value, long int *counter) {
-    long int *news = last;                          //Constant pointer to beyond my original array size.
-    while(first < last) {
-    	*(counter)++;
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
         long int t1_marker = (last-first)/3;        //Index to the end of the first third from my array.
         auto m1 = first+t1_marker;                  //Memory address to the first third of the current array.
 
@@ -129,13 +95,8 @@ long int* i_tsearch(long int *first, long int *last, long int value, long int *c
     return news; //Element not found.
 }
 
-<<<<<<< HEAD
 long int* r_tsearch(long int *first, long int *last, long int value, int& counter) {
     counter++;
-=======
-long int* r_tsearch(long int *first, long int *last, long int value, long int *counter) {
-	*(counter)++;
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
     while(first <= last) {
         long int t1_marker = (last-first)/3;           //Index to the end of the first third from array.
         auto m1 = first+t1_marker;                     //Address to the end of first third of my array.
@@ -198,11 +159,7 @@ long int* fib_search(long int *first, long int *last, long int value, int& count
     }
 
     while(fibT > 1) {
-<<<<<<< HEAD
         counter++;
-=======
-    	*(counter)++;
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
         if(value == *(first+fibT_2-1)) {
             return first+fibT_2-1;
         }
@@ -218,7 +175,6 @@ long int* fib_search(long int *first, long int *last, long int value, int& count
             fibT_2 = fibT - fibT_1;
         }
     }
-    *(counter)++;
     /*
     Since there might be a single element remaining for comparison,
     check if fibT_1 is 1. If Yes, compare value with that remaining element.
@@ -230,19 +186,11 @@ long int* fib_search(long int *first, long int *last, long int value, int& count
     return last; //Element not found.
 }
 
-<<<<<<< HEAD
 long int* jsearch(long int *first, long int *last, long int value, int& counter) {
     long int m=sqrt(distance(first,last));                    //Getting the value of blocks.
     long int k;
     for( k=0; k*m < distance(first,last); k++) {              //Only checks those blocks that have a non-Null index value.
         counter++;
-=======
-long int* jsearch(long int *first, long int *last,long int value, long int *counter) {
-    long int m=sqrt(distance(first,last));                    //Getting the value of blocks.
-    long int k;
-    for( k=0; k*m < distance(first,last); k++) {             //Only checks those blocks that have a non-Null index value.
-        *(counter)++;
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
         if(value == *(first+(k*m))) {
             return first+k*m; //Element found.
         }
@@ -254,13 +202,9 @@ long int* jsearch(long int *first, long int *last,long int value, long int *coun
             if(k==0) {
                 return last; //Element not found.
             }
-<<<<<<< HEAD
             cout << "counter = " << counter << endl;
             auto l = lsearch(first+((k-1)*m)+1, first+(k*m), value, counter);
             cout << "counter = " << counter << endl;
-=======
-            auto l = lsearch(first+((k-1)*m)+1, first+(k*m), value, counter);
->>>>>>> 893a21f42ec208312f811201cdb25043b8d14b0f
             /*
             Checks if the returned address refers to a existing value in array;
             If it exists, return it, otherwise, return last.

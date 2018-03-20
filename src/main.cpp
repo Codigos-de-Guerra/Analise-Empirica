@@ -37,13 +37,14 @@ int main(int argc, char **argv) {
     	cerr << "Invalid number " << argv[4] << ". Must have width 7!" << endl;
     	return -5;
     }
-    for(int j=0; j<7; ++j) {
+    for(int j=0; j<7; ++j) {		//Checks if string('number') inputted, is formated only by '1's or '0's.
     	if(bin[j] != '1' && bin[j] != '0') {
     		cerr << "Invalid number " << argv[4] << ". Must be in Binary form!" << endl;
     		return -6;
     	}
     }
     cout << endl;
+
 /*------------------------------------------------------------------------------------------------*/
                                       /* Array Section */
     cout << "Initializing Array...." << endl;
@@ -54,10 +55,8 @@ int main(int argc, char **argv) {
     }
     cout << "\033[1;32mFinished Array!\033[0m" << endl << endl;
 
-   // int medium_size = (maior-menor)/num_test;
 /*------------------------------------------------------------------------------------------------*/
                              /* Calculating Algorithms Section */
-
     /* Declaration of 'Func' as my array of pointers to functions. */
     Ptr_Func *Func = Pointer_to_Func(); 
 
@@ -73,7 +72,7 @@ int main(int argc, char **argv) {
 
     cout << "Calculating Searching Times...." << endl;
     for(int i=0; i<=num_test; ++i) {
-        if((i != 0 && i != num_test) && i % (num_test/5) == 0) {       //Just printing a response to know if the program still is running.
+        if((i != 0 && i != num_test) && i % (num_test/5) == 0) {       		//Just printing a response to know if the program still is running.
             cout << "Calculated... " << i*100/num_test << "%." << endl;
         }
     	for(int j=0; j<7; j++) {
@@ -81,8 +80,17 @@ int main(int argc, char **argv) {
     			tt[i][j] = ExecFunc(A, A+(menor+i*(maior-menor)/num_test), Func[j], steps[i][j]);
     		}
     	}
-        //*(tt+i) = ExecFunc(A, A+(menor+i*(MAXT-menor)/num_test), bin, Func);
     }
+
+/*------------------------------------------------------------------------------------------------*/
+    								/* Making output files */
+    ofstream ofsT;
+    ofstream ofsS;
+    TimeFile(menor, maior, num_test, bin, tt, ofsT, "out/Tempo(ms).txt");
+    StepFile(menor, maior, num_test, bin, steps, ofsS, "out/Passos.txt");
+
+    ofsT.close();
+    ofsS.close();
 
 /*------------------------------------------------------------------------------------------------*/
                                 /* Printing Chart Section */
@@ -90,45 +98,20 @@ int main(int argc, char **argv) {
     char qq;
     cin >> qq;
     cout << endl;
-    ofstream ofsT;
-    ofstream ofsS;
+
 
     if(qq == 'y' || qq == 'Y') {
-        //create_out(menor, maior, num_test, bin, tt, ofs, steps, "out/Values.txt");
-        TimeFile(menor, maior, num_test, bin, tt, ofsT, "out/Tempo(ms).txt", steps);
-        StepFile(menor, maior, num_test, bin, steps, ofsS, "out/Passos.txt");
+        printTerminal(menor, maior, num_test, bin, tt, steps);
     }
-        /*
-        cout << "#Size";
-        ofs << "#Size";
-        string t[] = {"ILS", "IBS", "RBS", "ITS", "RTS", "FBS", "JS"};
-        for(int i=0; i<7; ++i) {
-            if(bin[i] == '1') {
-                cout << setw(14) << right << t[i] << "   ";
-                ofs << setw(14) << right << t[i] << "   ";
-            }
-        }
-        cout << endl << endl;
-        ofs << endl << endl;
-        for(int i=0; i<=num_test; ++i) {
-            cout << setw(12) << left << menor+i*(MAXT-menor)/num_test;
-            ofs << setw(12) << left << menor+i*(MAXT-menor)/num_test;
-            for(int j=0; j<7; ++j) {
-                if(bin[j] == '1') {
-                    cout << setw(14) << left << setprecision(5) << tt[i][j].count() << "   ";
-                    ofs << setw(14) << left << setprecision(5) << tt[i][j].count() << "   ";
-                }
-            }
-            ofs << endl;
-        }
-    }
-    */
     else if(qq == 'n' || qq == 'N') {
         cout << "Program finished successfully!" << endl;
     }
     else {
         cerr << "You were supposed to insert 'y' or 'n'. Are you idiot?" << endl;
     }
+
+/*------------------------------------------------------------------------------------------------*/
+    						/* Cleaning previous space alocated */
     for(int i=0; i<num_test+1; i++) {
     	delete[] tt[i];
     }
@@ -139,6 +122,6 @@ int main(int argc, char **argv) {
     delete[] steps;
     delete[] tt;
     delete[] A;
-    //delete[] steps;
+
     return 0;
 }
