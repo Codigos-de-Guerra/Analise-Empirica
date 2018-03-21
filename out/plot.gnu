@@ -1,4 +1,4 @@
-set terminal png size 1024,768;
+set terminal png size 1920,1080;
 set ylabel 'Tempo decorrido em segundos';
 set xlabel 'Tamanho da amostra';
 
@@ -9,7 +9,6 @@ set style data linespoints;
 
 set title 'Grafico EDB';
 set key below left;
-set yrange[0:5];
 
-set output 'FBS.png';
-plot 'Tempo(s)_FBS.txt' with lines title 'FBS';
+set output 'RBS.png';
+plot 'Tempo(s)_RBS.txt' with lines title 'RBS';

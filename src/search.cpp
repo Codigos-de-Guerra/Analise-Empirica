@@ -5,7 +5,7 @@
     /*  Counter is the variable that will count how many iterations are being made on each search for each array size.    */
 /*---------------------------------------------------------------------------------------------------------------------------*/
 
-long int* lsearch(long int *first, long int *last, long int value, int& counter) {
+long int* lsearch(long int *first, long int *last, long int value, long int& counter) {
     while(first != last) {
         counter++;
         if(value == *first) {
@@ -17,7 +17,7 @@ long int* lsearch(long int *first, long int *last, long int value, int& counter)
     return last; //Element not found.
 }
 
-long int* i_bsearch(long int *first, long int *last, long int value, int& counter) {
+long int* i_bsearch(long int *first, long int *last, long int value, long int& counter) {
     long int *news = last;                              //Constant pointer to beyond my original array size.                                                  //Constant pointer to beyond my array size.
     while(first <= last) {
         counter++;
@@ -39,7 +39,7 @@ long int* i_bsearch(long int *first, long int *last, long int value, int& counte
     return news; //Element not found.
 }
 
-long int* r_bsearch(long int *first, long int *last, long int value, int& counter) {
+long int* r_bsearch(long int *first, long int *last, long int value, long int& counter) {
     counter++;
     long int mid_vector = (last - first)/2;
     auto m = first+mid_vector;
@@ -74,7 +74,7 @@ long int* r_bsearch(long int *first, long int *last, long int value, int& counte
     return last; //Element not found.
 }
 
-long int* i_tsearch(long int *first, long int *last, long int value, int& counter) {
+long int* i_tsearch(long int *first, long int *last, long int value, long int& counter) {
     long int *news = last;                          //Constant pointer to beyond my original array size.
     while(first < last) {
         counter++;
@@ -111,7 +111,7 @@ long int* i_tsearch(long int *first, long int *last, long int value, int& counte
     return news; //Element not found.
 }
 
-long int* r_tsearch(long int *first, long int *last, long int value, int& counter) {
+long int* r_tsearch(long int *first, long int *last, long int value, long int& counter) {
     counter++;
     while(first <= last) {
         counter++;
@@ -171,7 +171,7 @@ long int* r_tsearch(long int *first, long int *last, long int value, int& counte
     return last; //Element not found.
 }
 
-long int* fib_search(long int *first, long int *last, long int value, int& counter) {
+long int* fib_search(long int *first, long int *last, long int value, long int& counter) {
     //Initializing Fibonacci sequence.
     long int fibT_2 = 0;                        //(t-2)'th Fibonacci number.
     long int fibT_1 = 1;                        //(t-1)'th Fibonacci number.
@@ -218,7 +218,7 @@ long int* fib_search(long int *first, long int *last, long int value, int& count
     return last; //Element not found.
 }
 
-long int* jsearch(long int *first, long int *last, long int value, int& counter) {
+long int* jsearch(long int *first, long int *last, long int value, long int& counter) {
     long int m=sqrt(distance(first,last));                    //Getting the value of blocks.
     long int k;
     for( k=1; k*m < distance(first,last); k++) {              //Only checks those blocks that have a non-Null index value.

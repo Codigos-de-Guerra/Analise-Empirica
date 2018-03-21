@@ -6,12 +6,12 @@
 /*----------------------------------------------------------------------------------*/
 
 /*Procedure to write steps taken inforamtion along with array size.*/
-void StepFile(int menor, int maior, int casos, string bin, int **passos, ofstream& ofs_, string filename);
+void StepFile(long int menor, long int maior, long int casos, string bin, long int **passos, ofstream& ofs_, string filename);
 
 /*Procedure to write time information along with array size. Also prints on terminal.*/
-void TimeFile(int menor, int maior, int casos, string bin, chrono::duration<double> **tempo, ofstream& ofs_, string filename);
+void TimeFile(long int menor, long int maior, long int casos, string bin, chrono::duration<double> **tempo, ofstream& ofs_, string filename);
 
-/*Procedure to print onto terminal all informations obtained, in a human readable format.*/
-void printTerminal(int menor, int maior, int casos, string bin, chrono::duration<double> **tempo, int **passos);
+/*Procedure to prlong int onto terminal all informations obtained, in a human readable format.*/
+void printTerminal(long int menor, long int maior, long int casos, string bin, chrono::duration<double> **tempo, long int **passos);
 
 #endif

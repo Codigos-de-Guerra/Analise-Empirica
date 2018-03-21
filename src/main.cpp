@@ -10,21 +10,21 @@ int main(int argc, char **argv) {
     	return -1;
     }
     istringstream xs(argv[1]);		//Maximun space alocated my array may have.
-    int maior;						//Maximun array size.
+    long int maior;						//Maximun array size.
     if(!(xs >> maior)) {			//Treating the possible error from user part, of not inputing a valid number.
     	cerr << "Invalid number " << argv[1] << endl;
     	return -2;
     }
 
     istringstream ss(argv[2]);      //Minimun space alocated my array may have.
-    int menor;                      //Minimum array size.
+    long int menor;                      //Minimum array size.
     if (!(ss >> menor)) {           //Treating the possible error from user part, of not inputing a valid number.
         cerr << "Invalid number " << argv[2] << endl;
         return -3;
     }
 
     istringstream cs(argv[3]);      //Number of tests case.
-    int num_test;                   //Case tests.
+    long int num_test;                   //Case tests.
     if(!(cs >> num_test)) {         //Treating the possible error from user part, of not inputing a valid number.
         cerr << "Invalid number " << argv[3] << endl;
         return -4;
@@ -49,8 +49,8 @@ int main(int argc, char **argv) {
                                       /* Array Section */
     cout << "Initializing Array...." << endl;
     long int *A;
-    A = new long int[300000000];
-    for(int i=0; i<300000000; i++) {
+    A = new long int[1000000000];
+    for(int i=0; i<1000000000; i++) {
     	A[i] = i+5;
     }
     cout << "\033[1;32mFinished Array!\033[0m" << endl << endl;
@@ -61,17 +61,17 @@ int main(int argc, char **argv) {
     Ptr_Func *Func = Pointer_to_Func(); 
 
     chrono::duration<double> **tt = new chrono::duration<double>*[num_test+1];
-    for(int i=0; i<num_test+1; i++) {
+    for(long int i=0; i<num_test+1; i++) {
     	tt[i] = new chrono::duration<double>[7];
     }
     
-    int **steps = new int*[num_test+1];
-    for(int i=0; i<num_test+1; i++) {
-    	steps[i] = new int[7];
+    long int **steps = new long int*[num_test+1];
+    for(long int i=0; i<num_test+1; i++) {
+    	steps[i] = new long int[7];
     }
 
     cout << "Calculating Searching Times...." << endl;
-    for(int i=0; i<=num_test; ++i) {
+    for(long int i=0; i<=num_test; ++i) {
         if((i != 0 && i != num_test) && i % (num_test/5) == 0) {       		//Just printing a response to know if the program still is running.
             cout << "Calculated... " << i*100/num_test << "%." << endl;
         }
@@ -112,10 +112,10 @@ int main(int argc, char **argv) {
 
 /*------------------------------------------------------------------------------------------------*/
     						/* Cleaning previous space alocated */
-    for(int i=0; i<num_test+1; i++) {
+    for(long int i=0; i<num_test+1; i++) {
     	delete[] tt[i];
     }
-    for(int i=0; i<num_test+1; i++) {
+    for(long int i=0; i<num_test+1; i++) {
     	delete[] steps[i];
     }
     delete[] Func;
