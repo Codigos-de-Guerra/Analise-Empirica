@@ -113,7 +113,7 @@ long int* i_tsearch(long int *first, long int *last, long int value, long int& c
 
 long int* r_tsearch(long int *first, long int *last, long int value, long int& counter) {
     counter++;
-    while(first <= last) {
+    while(first < last) {
         counter++;
         long int t1_marker = (last-first)/3;           //Index to the end of the first third from array.
         auto m1 = first+t1_marker;                     //Address to the end of first third of my array.

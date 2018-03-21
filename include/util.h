@@ -18,8 +18,8 @@ using Ptr_Func = long int* (*)(long int*, long int*, long int, long int&);
 //Function to generate my array of pointers to the search functions.
 Ptr_Func* Pointer_to_Func(void);
 
-//Function to execute the desired search algorithms and make a calculation on the time averages on milliseconds.
-//Returns a pointer containing all time averages of each desired search algorithm on milliseconds.
-chrono::duration<double> ExecFunc(long int *first, long int *last, Ptr_Func Func, long int &steps);
+//Function to execute the desired search algorithms and make a calculation on the time averages on micro-seconds.
+//Returns a pointer containing all time averages of each desired search algorithm on micro-seconds.
+chrono::duration<double, micro> ExecFunc(long int *first, long int *last, Ptr_Func Func, long int &steps);
 
 #endif

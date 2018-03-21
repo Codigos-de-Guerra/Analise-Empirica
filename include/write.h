@@ -9,9 +9,9 @@
 void StepFile(long int menor, long int maior, long int casos, string bin, long int **passos, ofstream& ofs_, string filename);
 
 /*Procedure to write time information along with array size. Also prints on terminal.*/
-void TimeFile(long int menor, long int maior, long int casos, string bin, chrono::duration<double> **tempo, ofstream& ofs_, string filename);
+void TimeFile(long int menor, long int maior, long int casos, string bin, chrono::duration<double, micro> **tempo, ofstream& ofs_, string filename);
 
 /*Procedure to prlong int onto terminal all informations obtained, in a human readable format.*/
-void printTerminal(long int menor, long int maior, long int casos, string bin, chrono::duration<double> **tempo, long int **passos);
+void printTerminal(long int menor, long int maior, long int casos, string bin, chrono::duration<double, micro> **tempo, long int **passos);
 
 #endif

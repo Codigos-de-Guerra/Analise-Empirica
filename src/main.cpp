@@ -49,8 +49,8 @@ int main(int argc, char **argv) {
                                       /* Array Section */
     cout << "Initializing Array...." << endl;
     long int *A;
-    A = new long int[1000000000];
-    for(int i=0; i<1000000000; i++) {
+    A = new long int[100000000];
+    for(int i=0; i<100000000;i++) {
     	A[i] = i+5;
     }
     cout << "\033[1;32mFinished Array!\033[0m" << endl << endl;
@@ -60,9 +60,9 @@ int main(int argc, char **argv) {
     /* Declaration of 'Func' as my array of pointers to functions. */
     Ptr_Func *Func = Pointer_to_Func(); 
 
-    chrono::duration<double> **tt = new chrono::duration<double>*[num_test+1];
+    chrono::duration<double, micro> **tt = new chrono::duration<double, micro>*[num_test+1];
     for(long int i=0; i<num_test+1; i++) {
-    	tt[i] = new chrono::duration<double>[7];
+    	tt[i] = new chrono::duration<double, micro>[7];
     }
     
     long int **steps = new long int*[num_test+1];
@@ -81,12 +81,14 @@ int main(int argc, char **argv) {
     		}
     	}
     }
+    cout << "\033[1;32mFinished all Calculations!\033[0m" << endl << endl;
 
 /*------------------------------------------------------------------------------------------------*/
     								/* Making output files */
     ofstream ofsT;
     ofstream ofsS;
-    TimeFile(menor, maior, num_test, bin, tt, ofsT, "out/Tempo(s).txt");
+
+    TimeFile(menor, maior, num_test, bin, tt, ofsT, "out/Tempo(µs).txt");
     StepFile(menor, maior, num_test, bin, steps, ofsS, "out/Passos.txt");
 
     ofsT.close();
