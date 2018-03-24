@@ -1,82 +1,77 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 using namespace std;
 
-bool arg_ok(string s){
-    if(s.size() != 7) {
-        return false;
-    }
+int main() {
+    cout << "Script to generate graphics on GNUPLOT." << endl;
+    cout << "Select algorithms to be used on plot making together." << endl;
+    cout << "Choose also if you desire a plot type of: 'Tempo x Tamanho' or 'Iteracoes x Tamanho'." << endl;
+    cout << "Input example:" << endl;
+    cout << " 1 1111111  Example where all algorithms are selected to plotting on type of: 'Tempo x Tamanho'." << endl;
+    cout << " 0 0110000  Example where only binary searchs are generated and on type of: 'Iteracoes x Tamanho'." << endl;
 
-    for(int i = 0; i < 7; i++) {
-        if(s[i] != '1' && s[i] != '0') {
-            return false;
+    int x;
+    cin >> x;
+    string s;
+    cin >> s;
+    cout << s;
+    
+/*---------------------------------------------------------------------------------------------------------------------*/
+    string t[] = {"ILS", "IBS", "RBS", "ITS", "RTS", "FBS", "JS"};                      //String to store the enshortened algorithm name.
+    /* String to store the full length name of my search algorithms. */
+    string T[] = {"Iterative Linear Search", "Iterative Binary Search", "Recursive Binary Search", "Iterative Ternary Search", "Recursive Ternary Search", "Fibonacci Search", "Jump Search"};
+
+    string file_to_plot;            //String to help me make my code more dynamic on the aspect of which file is going to generate image graphic.
+    string ylabel;                  //The 'y' axis of graphic.
+
+    ofstream ofs;
+    ofs.open("ploty.gnu");
+
+    ofs << "## Type of graphic (x) -> " << x << endl;
+    ofs << "## Algorithms selected (s) -> " << s << endl;
+    ofs << "set terminal png size 1024,768" << endl;                    //Setting quality of image output.
+    ofs << "set xlabel 'Tamanho da amostra'" << endl;                   //Setting our 'x' axis on graphic.
+
+    if(x == 1) {
+        ofs << "set ylabel 'Tempo médio de busca em microsegundos'" << endl;
+        ofs << "set title 'Tempo médio de busca para tamanho de amostra'" << endl;
+        ylabel = "_Time";                   //It is a Time type.
+        file_to_plot.assign("Tempo(µs)_");
+    }
+    else  {
+        ofs << "set ylabel 'Iterações executadas'" << endl;
+        ofs << "set title 'Iterações executadas para cada tamanho de amostra'" << endl;
+        ylabel = "_Step";                   //It is a Step type.
+        file_to_plot.assign("Passos_");
+    }
+    ofs << "set grid" << endl;
+    ofs << "set style data linespoints" << endl;
+    ofs << "set key below left" << endl;
+    ofs << "set output '" << s << ylabel << ".png'" << endl;    //Creating output name for my image containing graphic.
+
+    int count = 0;              //To know if some algorithm got selected.
+    for(int j=0; j<7; ++j) {
+        if(s[j] == '1') {
+            count++;
         }
     }
 
-    return true;
-}
-int main() {
-    cout << "Scrip para gerar graficos no GNUPLOT" << endl;
-    cout << "Selecione os algoritmos que terao seus graficos gerados em conjunto" << endl;
-    cout << "Exemplo de entrada:\n";
-    cout << "\t\'1111111\'\tExemplo em que todos os algoritmos sao selecionados" << endl;
-    cout << "\t\'0000000\'\tExemplo em que nenhum algoritmo eh selecionado" << endl;
-
-    string s;
-    cin >> s;
-    cout << "meucu";
-    
-    if(arg_ok(s)) {
+    if(count == 0) {                           //If nono got selected, then there is nothing to do.
+        system("echo No graphic generated!");
         return 0;
     }
 
-    system("gnuplot ");
-    system("set terminal png size 1024,768");
+    ofs << "plot";
 
-    system("set ylabel 'Tempo decorrido em milisegundos'");
-    system("set xlabel 'Tamanho da amostra");
-
-    system("set title 'Media de tempo decorrido para cada tamanho de amostra'");
-
-    system("set grid");
-    system("set style data linespoints");
-
-    string temp = "set output ";
-    // + s + "\'.png";
-    temp.append(s);
-    temp.append(".png");
-    system(temp.c_str());
-
-    //system("plot ");
-    bool flag = false;
-
-    if(s[0] == '1') {
-        system("plot 'Tempo(ms)_ILS.txt' using 1:2 title 'Iterative Linear Search'");
-    }
-    if(s[1] == '1') {
-        if(!flag) system(",");
-        system("plot 'Tempo(ms)_IBS.txt' using 1:3 title 'Iterative Binary Search'");
-    }
-    if(s[2] == '1') {
-        if(!flag) system(",");
-        system("plot 'Tempo(ms)_RBS.txt' using 1:4 title 'Recursive Binary Search'");
-    }
-    if(s[3] == '1') {
-        if(!flag) system(",");
-        system("plot 'Tempo(ms)_ITS.txt' using 1:5 title 'Iterative Ternary Search'");
-    }
-    if(s[4] == '1') {
-        if(!flag) system(",");
-        system("plot 'Tempo(ms)_RTS.txt' using 1:6 title 'Recursive Ternary Search'");
-    }
-    if(s[5] == '1') {
-        if(!flag) system(",");
-        system("plot 'Tempo(ms)_FBS.txt' using 1:7 title 'Fibonacci Search'");
-    }
-    if(s[6] == '1') {
-        if(!flag) system(",");
-        system("plot 'Tempo(ms)_JS.txt' using 1:8 title 'Jump Search'");
+    for(int i=0; i<7; ++i) {
+        if(s[i] == '1') {
+            /* Plots graphic with lines representing choosen algorithms. */
+            ofs << " '" << file_to_plot << t[i] << ".txt' with linespoints title '" << T[i] << "'";
+            ofs << ",";
+        }
     }
 
-    system("\"");
+    ofs.close();
+    system(" gnuplot < ploty.gnu");
 }

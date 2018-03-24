@@ -40,7 +40,6 @@ long int* i_bsearch(long int *first, long int *last, long int value, long int& c
 }
 
 long int* r_bsearch(long int *first, long int *last, long int value, long int& counter) {
-    counter++;
     long int mid_vector = (last - first)/2;
     auto m = first+mid_vector;
     //Creates a 'm' variable to keep track of the center of the current array size.
@@ -112,8 +111,7 @@ long int* i_tsearch(long int *first, long int *last, long int value, long int& c
 }
 
 long int* r_tsearch(long int *first, long int *last, long int value, long int& counter) {
-    counter++;
-    while(first < last) {
+    if(first < last) {
         counter++;
         long int t1_marker = (last-first)/3;           //Index to the end of the first third from array.
         auto m1 = first+t1_marker;                     //Address to the end of first third of my array.
