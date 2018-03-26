@@ -40,6 +40,7 @@ long int* i_bsearch(long int *first, long int *last, long int value, long int& c
 }
 
 long int* r_bsearch(long int *first, long int *last, long int value, long int& counter) {
+    counter++;
     long int mid_vector = (last - first)/2;
     auto m = first+mid_vector;
     //Creates a 'm' variable to keep track of the center of the current array size.
@@ -52,6 +53,7 @@ long int* r_bsearch(long int *first, long int *last, long int value, long int& c
         else if(value < *m) {
             counter += 2;
             auto s = r_bsearch(first,m-1,value,counter);
+            counter++;
             /*
             Checks if the found memory address really refers to or value.
             If it does, return it, otherwise, return outside the array.
@@ -111,6 +113,7 @@ long int* i_tsearch(long int *first, long int *last, long int value, long int& c
 }
 
 long int* r_tsearch(long int *first, long int *last, long int value, long int& counter) {
+    counter++;
     if(first < last) {
         counter++;
         long int t1_marker = (last-first)/3;           //Index to the end of the first third from array.
@@ -131,6 +134,7 @@ long int* r_tsearch(long int *first, long int *last, long int value, long int& c
             if(value < *m1) {
                 counter++;
                 auto s = r_tsearch(first, m1-1, value, counter);
+                counter++;
                 /*
                 Checks if the found memory address really refers to our value.
                 If it does, return it, otherwise, return outside the array.
@@ -147,6 +151,7 @@ long int* r_tsearch(long int *first, long int *last, long int value, long int& c
             else if(value < *m2) {
                 counter += 2;
                 auto l = r_tsearch(m1+1, m2-1, value, counter);
+                counter++;
                 /*
                 Checks if the found memory address really refers to or value.
                 If it does, return it, otherwise, return outside the array.

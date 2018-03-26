@@ -9,7 +9,7 @@ outdir = ./out
 
 # Macros
 CC = g++
-CFLAGS = -Wall -Wextra -std=c++11 -lm -I$(incdir)
+CFLAGS = -Wall -std=c++11 -lm -I$(incdir)
 RM = -rm 
 OBJS = $(addprefix $(objdir)/,search.o util.o write.o)
 
@@ -40,6 +40,10 @@ analise: $(srcdir)/main.cpp $(OBJS)
 	mkdir -p $(outdir)
 	$(CC) $(CFLAGS) $^ -o $@
 
+# Use "make plot" to compile the file generator for gnuplot
+plot: $(srcdir)/script.cpp
+	$(CC) -Wall -std=c++11 $^ -o $@
+
 # Builds only the util module
 $(objdir)/util.o: $(srcdir)/util.cpp $(incdir)/util.h $(incdir)/search.h
 	mkdir -p $(objdir)
@@ -55,13 +59,18 @@ $(objdir)/write.o: $(srcdir)/write.cpp $(incdir)/write.h $(incdir)/util.h
 	mkdir -p $(objdir)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Removes executable
+cleanbin:
+	$(RM) analise plot
+
 # Removes all objects
 cleanobj:
 	$(RM) $(objdir)/*.o
+	$(RM) -r $(objdir)
 
 # Removes all outputs
-cleanbin:
-	$(RM) $(outdir)/*
+cleanout:
+	$(RM) -r -f $(outdir)
 
-# Removes all executables and all objects
-clean: cleanobj cleanout 
+# Removes all objects, all outputs and all executables
+clean: cleanobj cleanout cleanbin

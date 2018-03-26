@@ -9,23 +9,23 @@ int main(int argc, char **argv) {
     	cerr << "Inputs on command line not defined correctly!" << endl;
     	return -1;
     }
-    istringstream xs(argv[1]);		//Maximun space alocated my array may have.
-    long int maior;						//Maximun array size.
-    if(!(xs >> maior)) {			//Treating the possible error from user part, of not inputing a valid number.
-    	cerr << "Invalid number " << argv[1] << endl;
-    	return -2;
-    }
-
-    istringstream ss(argv[2]);      //Minimun space alocated my array may have.
+    istringstream ss(argv[1]);           //Minimun space alocated my array may have.
     long int menor;                      //Minimum array size.
-    if (!(ss >> menor)) {           //Treating the possible error from user part, of not inputing a valid number.
+    if (!(ss >> menor)) {                //Treating the possible error from user part, of not inputing a valid number.
+        cerr << "Invalid number " << argv[1] << endl;
+        return -2;
+    }
+    istringstream xs(argv[2]);          //Maximun space alocated my array may have.
+    long int maior;                     //Maximun array size.
+    if(!(xs >> maior)) {                //Treating the possible error from user part, of not inputing a valid number.
         cerr << "Invalid number " << argv[2] << endl;
         return -3;
     }
 
-    istringstream cs(argv[3]);      //Number of tests case.
+
+    istringstream cs(argv[3]);           //Number of tests case.
     long int num_test;                   //Case tests.
-    if(!(cs >> num_test)) {         //Treating the possible error from user part, of not inputing a valid number.
+    if(!(cs >> num_test)) {              //Treating the possible error from user part, of not inputing a valid number.
         cerr << "Invalid number " << argv[3] << endl;
         return -4;
     }
@@ -49,8 +49,8 @@ int main(int argc, char **argv) {
                                       /* Array Section */
     cout << "Initializing Array...." << endl;
     long int *A;
-    A = new long int[100000000];
-    for(int i=0; i<100000000;i++) {
+    A = new long int[maior+1];          //Passing the maximun size previously defined on command line.
+    for(int i=0; i<maior;i++) {
     	A[i] = i+5;
     }
     cout << "\033[1;32mFinished Array!\033[0m" << endl << endl;
