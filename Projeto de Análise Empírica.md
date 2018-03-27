@@ -538,11 +538,11 @@ Ao observamos os gráficos de medição de tempo, é possível notar a presença
 
 #### Tempo
 
-![000000_Tim](/home/danieloguerra/Analise-Test/out/1000000_Time.png)
+![000000_Tim](/home/danieloguerra/Analise-Test/Imagens/1000000_Time.png)
 
 #### Iterações
 
-![000000_Ste](/home/danieloguerra/Analise-Test/out/1000000_Step.png)
+![000000_Ste](/home/danieloguerra/Analise-Test/Imagens/1000000_Step.png)
 
 
 
@@ -556,11 +556,11 @@ Ao observamos os gráficos de medição de tempo, é possível notar a presença
 
 #### Tempo
 
-![100000_Tim](/home/danieloguerra/Analise-Test/out/0100000_Time.png)
+![100000_Tim](/home/danieloguerra/Analise-Test/Imagens/0100000_Time.png)
 
 #### Iterações
 
-![100000_Ste](/home/danieloguerra/Analise-Test/out/0100000_Step.png)
+![100000_Ste](/home/danieloguerra/Analise-Test/Imagens/0100000_Step.png)
 
 ##### Comentários
 
@@ -572,11 +572,11 @@ Como calculado previamente, a função gerada no gráfico seguiu um comportament
 
 #### Tempo
 
-![010000_Tim](/home/danieloguerra/Analise-Test/out/0010000_Time.png)
+![010000_Tim](/home/danieloguerra/Analise-Test/Imagens/0010000_Time.png)
 
 #### Iterações
 
-![010000_Ste](/home/danieloguerra/Analise-Test/out/0010000_Step.png)
+![010000_Ste](/home/danieloguerra/Analise-Test/Imagens/0010000_Step.png)
 
 ##### Comentários
 
@@ -588,11 +588,11 @@ Seguem as mesmas observações do modo iterativo. Fica claro a semelhança entre
 
 #### Tempo
 
-![001000_Tim](/home/danieloguerra/Analise-Test/out/0001000_Time.png)
+![001000_Tim](/home/danieloguerra/Analise-Test/Imagens/0001000_Time.png)
 
 #### Iterações
 
-![001000_Ste](/home/danieloguerra/Analise-Test/out/0001000_Step.png)
+![001000_Ste](/home/danieloguerra/Analise-Test/Imagens/0001000_Step.png)
 
 ##### Comentários
 
@@ -604,11 +604,11 @@ Comportamento do gráfico também seguiu o previamente calculdo, da mesma forma 
 
 #### Tempo
 
-![000100_Tim](/home/danieloguerra/Analise-Test/out/0000100_Time.png)
+![000100_Tim](/home/danieloguerra/Analise-Test/Imagens/0000100_Time.png)
 
 #### Iterações
 
-![000100_Ste](/home/danieloguerra/Analise-Test/out/0000100_Step.png)
+![000100_Ste](/home/danieloguerra/Analise-Test/Imagens/0000100_Step.png)
 
 ##### Comentários
 
@@ -620,11 +620,11 @@ Segue mesmas inferências da recursiva binária e iterativa ternária.$log_3(n)$
 
 #### Tempo
 
-![000010_Tim](/home/danieloguerra/Analise-Test/out/0000010_Time.png)
+![000010_Tim](/home/danieloguerra/Analise-Test/Imagens/0000010_Time.png)
 
 #### Iterações
 
-![000010_Ste](/home/danieloguerra/Analise-Test/out/0000010_Step.png)
+![000010_Ste](/home/danieloguerra/Analise-Test/Imagens/0000010_Step.png)
 
 ##### Comentários
 
@@ -636,11 +636,11 @@ Assim como nas buscas binárias e ternárias, podemos observar a semelhança com
 
 #### Tempo
 
-![000001_Tim](/home/danieloguerra/Analise-Test/out/0000001_Time.png)
+![000001_Tim](/home/danieloguerra/Analise-Test/Imagens/0000001_Time.png)
 
 #### Iterações
 
-![000001_Ste](/home/danieloguerra/Analise-Test/out/0000001_Step.png)
+![000001_Ste](/home/danieloguerra/Analise-Test/Imagens/0000001_Step.png)
 
 ##### Comentários
 
@@ -652,7 +652,7 @@ Como falado previamente, o pior caso depende muito do tamanho $n$ do vetor. No g
 
 #### Iterações
 
-![101010_Ste](/home/danieloguerra/Analise-Test/out/0101010_Step.png)
+![101010_Ste](/home/danieloguerra/Analise-Test/Imagens/0101010_Step.png)
 
 ##### Comentários
 
@@ -666,13 +666,13 @@ Pelo fato do gráfico de iterações provar-se mais fiel à análise, uma vez qu
 
 ##### Iterações
 
-![110000_Ste](/home/danieloguerra/Analise-Test/out/0110000_Step.png)
+![110000_Ste](/home/danieloguerra/Analise-Test/Imagens/0110000_Step.png)
 
 #### Ternária
 
 ##### Iterações
 
-![001100_Ste](/home/danieloguerra/Analise-Test/out/0001100_Step.png)
+![001100_Ste](/home/danieloguerra/Analise-Test/Imagens/0001100_Step.png)
 
 ##### Comentários
 
@@ -684,11 +684,11 @@ Para efeito de análise, usamos somente o gráfico de iterações, visto que ele
 
 #### Tempo
 
-![111111_Tim](/home/danieloguerra/Analise-Test/out/1111111_Time.png)
+![111111_Tim](/home/danieloguerra/Analise-Test/Imagens/1111111_Time.png)
 
 #### Iterações
 
-![111111_Ste](/home/danieloguerra/Analise-Test/out/1111111_Step.png)
+![111111_Ste](/home/danieloguerra/Analise-Test/Imagens/1111111_Step.png)
 
 ##### Comentários
 
