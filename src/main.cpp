@@ -49,8 +49,8 @@ int main(int argc, char **argv) {
                                       /* Array Section */
     cout << "Initializing Array...." << endl;
     long int *A;
-    A = new long int[maior+1];          //Passing the maximun size previously defined on command line.
-    for(int i=0; i<maior;i++) {
+    A = new long int[100000000];         
+    for(int i=0; i<100000000;i++) {
     	A[i] = i+5;
     }
     cout << "\033[1;32mFinished Array!\033[0m" << endl << endl;
